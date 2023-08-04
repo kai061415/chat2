@@ -14,28 +14,35 @@ def read_file(filename):
 def convert(lines):
 	Allen_word = 0
 	Viki_word = 0
+	Allen_sticker = 0
+	Viki_sticker = 0
+	Allen_image = 0
+	Viki_image = 0
 	for line in lines:
 		name = line[1]
 		if name == 'Allen':
-			for m in line[2:]:
-				Allen_word = Allen_word + len(m)
+			if line[2] == '貼圖':
+				Allen_sticker = Allen_sticker + 1
+			elif line[2] == '圖片':
+				Allen_image = Allen_image + 1
+			else:
+				for m in line[2:]:
+					Allen_word = Allen_word + len(m)
 		elif name == 'Viki':
-			for m in line[2:]:
-				Viki_word = Viki_word + len(m)
+			if line[2] == '貼圖':
+				Viki_sticker = Viki_sticker + 1
+			elif line[2] == '圖片':
+				Viki_image = Viki_image + 1
+			else:
+				for m in line[2:]:
+					Viki_word = Viki_word + len(m)
 	print('Allen說了', Allen_word, '個字')
+	print('Allen傳了', Allen_sticker, '個貼圖')
+	print('Allen傳了', Allen_image, '個圖片')
 	print('Viki說了', Viki_word, '個字')
+	print('Viki傳了', Viki_sticker, '個貼圖')
+	print('Viki傳了', Viki_image, '個圖片')
 						
-
-
-
-
-
-
-
-
-
-
-
 def main():
 	lines = read_file('LINE-Viki.txt')
 	convert(lines)
